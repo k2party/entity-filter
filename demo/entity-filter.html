@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="x-ua-compatible" content="IE=edge">
+<title>EntityFilter demonstration</title>
+<style type="text/css">
+div.container {
+	background-color: #ddd;
+	width: 400px;
+	height: 400px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	margin: 2px;
+}
+div.panel {
+	width: 100%;
+}
+div.header {
+	background-color: #a88;
+	position: sticky;
+	top:0;
+}
+div.entity {
+	background-color: #fff;
+}
+div.header,
+div.entity {
+	border: 1px solid #daa;
+	display: inline-flex;
+	width: 100%;
+	padding: 0.5em 3px 0.5em 3px;
+}
+div.header .dept,
+div.entity .dept {
+	width: 200px;
+}
+div.entity_none {
+	display:none;
+}
+</style>
+</head>
+<body>
+
+<div class="form">
+	<label>所属</label>
+	<select name="filter-dept">
+		<option value=""></option>
+		<option value="役員">役員</option>
+		<option value="総務部">総務部</option>
+		<option value="開発部">開発部</option>
+		<option value="営業部">営業部</option>
+		<option value="情報システム部">情報システム部</option>
+	</select>
+	
+	<label>氏名</label>
+	<input type="text" name="filter-name">
+</div>
+
+<div class="container">
+	<div class="panel" id="list1">
+		<div class="header"><div class="dept">所属</div><div class="name">氏名</div></div>
+		<div class="entity"><div class="dept">役員・代表取締役社長</div><div class="name">社長 太郎</div></div>
+		<div class="entity"><div class="dept">役員・専務取締役</div><div class="name">専務 花子</div></div>
+		<div class="entity"><div class="dept">役員・取締役</div><div class="name">取締 次郎</div></div>
+		<div class="entity"><div class="dept">総務部</div><div class="name">総務 太郎</div></div>
+		<div class="entity"><div class="dept">総務部庶務課</div><div class="name">庶務 良子</div></div>
+		<div class="entity"><div class="dept">総務部庶務課</div><div class="name">庶務 和子</div></div>
+		<div class="entity"><div class="dept">総務部庶務課</div><div class="name">庶務 幸子</div></div>
+		<div class="entity"><div class="dept">総務部経理課</div><div class="name">経理 一郎</div></div>
+		<div class="entity"><div class="dept">総務部経理課</div><div class="name">経理 二郎</div></div>
+		<div class="entity"><div class="dept">総務部経理課</div><div class="name">経理 三郎</div></div>
+		<div class="entity"><div class="dept">営業部</div><div class="name">営業 太郎</div></div>
+		<div class="entity"><div class="dept">営業部営業2課</div><div class="name">営業 花子</div></div>
+		<div class="entity"><div class="dept">営業部営業2課</div><div class="name">営業 一男</div></div>
+		<div class="entity"><div class="dept">営業部営業2課</div><div class="name">営業 次男</div></div>
+		<div class="entity"><div class="dept">営業部営業1課</div><div class="name">営業 二郎</div></div>
+		<div class="entity"><div class="dept">営業部営業1課</div><div class="name">営業 三郎</div></div>
+		<div class="entity"><div class="dept">営業部営業1課</div><div class="name">営業 四郎</div></div>
+		<div class="entity"><div class="dept">開発部</div><div class="name">大阪 太郎</div></div>
+		<div class="entity"><div class="dept">開発部開発1課</div><div class="name">大阪 二郎</div></div>
+		<div class="entity"><div class="dept">開発部開発1課</div><div class="name">大阪 三郎</div></div>
+		<div class="entity"><div class="dept">開発部開発1課</div><div class="name">大阪 四郎</div></div>
+		<div class="entity"><div class="dept">開発部開発2課</div><div class="name">開発 一郎</div></div>
+		<div class="entity"><div class="dept">開発部開発2課</div><div class="name">開発 二郎</div></div>
+		<div class="entity"><div class="dept">開発部開発2課</div><div class="name">開発 三郎</div></div>
+		<div class="entity"><div class="dept">情報システム部</div><div class="name">情報 太郎</div></div>
+		<div class="entity"><div class="dept">情報システム部システム課</div><div class="name">情報 花子</div></div>
+		<div class="entity"><div class="dept">情報システム部システム課</div><div class="name">情報 幸子</div></div>
+		<div class="entity_none">表示する記事がありません</div>
+	</div>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script type="text/javascript" src="resources/entity-filter.js"></script>
+<script type="text/javascript">
+(function($) {
+	var $filter_name = $('[name=filter-name]');
+	var $filter_dept = $('[name=filter-dept]');
+	
+	$('#list1').EntityFilter({
+		matchAll: true,
+		matches: {name:'or', dept:'prefix'},
+		filters: {
+			name: $filter_name.val().trim(),
+			dept: $filter_dept.val().trim(),
+		},
+	});
+
+	$filter_name.on('keyup', function(jsEvent) {
+		$('#list1').EntityFilter('set', 'name', $(this).val())
+		.EntityFilter('filter');
+	});
+
+	$filter_dept.on('change', function(jsEvent) {
+		$('#list1').EntityFilter('set', 'dept', $(this).val())
+		.EntityFilter('filter');
+	});
+}(jQuery));
+</script>
+</body>
+</html>
