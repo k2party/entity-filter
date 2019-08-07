@@ -96,7 +96,7 @@ div.entity_none {
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script type="text/javascript" src="resources/entity-filter.js"></script>
 <script type="text/javascript">
-(function($) {
+$(function() {
 	var $filter_name = $('[name=filter-name]');
 	var $filter_dept = $('[name=filter-dept]');
 	
@@ -118,7 +118,7 @@ div.entity_none {
 		$('#list1').EntityFilter('set', 'dept', $(this).val())
 		.EntityFilter('filter');
 	});
-}(jQuery));
+});
 </script>
 </body>
 </html>
