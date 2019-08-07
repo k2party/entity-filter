@@ -26,7 +26,7 @@
 			if(result == undefined) {
 				result = this._options.matchesDefault;
 			}
-			if(typeof result == 'bool') {
+			if(typeof result == 'boolean') {
 				result = result? 'match':'partical';
 			}
 			return result;
@@ -94,7 +94,7 @@
 			case 'suffix':
 				return text.endsWith(value);
 			default:
-				$.error('unknown type:' + type);
+				throw new Error('unknown type:' + type);
 			}
 			return false;
 		},
@@ -206,6 +206,6 @@
 			return (results.length > 1)? results:results[0];
 		}
 	
-		$.error('EntityFilter: command "{cmd}" does not exist.'.replace('{cmd}', cmd));
+		throw new Error('EntityFilter: command "{cmd}" does not exist.'.replace('{cmd}', cmd));
 	};
 })(jQuery);
