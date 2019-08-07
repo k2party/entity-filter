@@ -1,4 +1,8 @@
-(function($) {
+/**
+ * entity-filter.js
+ * Copyright (c) 2019 KOMEKOME Party (k2party)
+ */
+;(function($) {
 	var EntityFilter = function($target, options) {
 		this._$target = $target;
 		this._options = $.extend({
@@ -182,7 +186,6 @@
 	
 	jQuery.fn.EntityFilter = function() {
 		var args = Array.prototype.slice.call(arguments);
-	
 		if(args.length == 0 || typeof args[0] == 'object') {
 			this.each(function(index, target) {
 				target._entity_filter = new EntityFilter($(target), args[0]);
