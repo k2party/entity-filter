@@ -189,8 +189,8 @@
 		if(args.length == 0 || typeof args[0] == 'object') {
 			this.each(function(index, target) {
 				target._entity_filter = new EntityFilter($(target), args[0]);
+				target._entity_filter.filter();
 			});
-			
 			return this;
 		}
 		
