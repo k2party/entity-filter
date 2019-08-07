@@ -94,9 +94,9 @@
 			case 'partical':
 				return (text.indexOf(value) > -1);
 			case 'prefix':
-				return text.startsWith(value);
+				return (text.indexOf(value) == 0);
 			case 'suffix':
-				return text.endsWith(value);
+				return (text.lastIndexOf(value, text.length - 1) == value.length);
 			default:
 				throw new Error('unknown type:' + type);
 			}
